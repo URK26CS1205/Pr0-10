@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dynamic DOM Manipulation</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            max-width: 550px;
+            margin: 30px auto;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px #ccc;
+        }
+
+        input {
+            padding: 10px;
+            margin: 10px;
+            width: 70%;
+        }
+
+        button {
+            padding: 10px 18px;
+            margin: 8px;
+            border: none;
+            border-radius: 6px;
+            background: #2874a6;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1b4f72;
+        }
+
+        #output {
+            margin: 20px;
+            font-size: 18px;
+            color: #2874a6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1 id="heading">DOM Manipulation</h1>
+
+        <p id="output">Welcome! Try the buttons below.</p>
+
+        <!-- Buttons with onclick -->
+        <button onclick="changeText()">Change Text</button>
+
+        <button onclick="changeColor()">Change Color</button>
+
+        <button onclick="addElement()">Add Element</button>
+
+        <hr>
+
+        <!-- Interactive form element -->
+        <h2>Enter Your Name</h2>
+
+        <input type="text" id="username"
+               placeholder="Enter your name">
+
+        <button onclick="showName()">Submit</button>
+
+        <hr>
+
+        <!-- Timer controls -->
+        <h2>Timer Controls</h2>
+
+        <button onclick="startTimeout()">Start Timeout</button>
+
+        <button onclick="stopTimeout()">Clear Timeout</button>
+
+        <button onclick="startInterval()">Start Interval</button>
+
+        <button onclick="stopInterval()">Stop Interval</button>
+
+        <p id="timer">Counter: 0</p>
+
+    </div>
+
+    <script>
+
+        // Selecting elements using querySelector()
+        const output = document.querySelector("#output");
+        const heading = document.querySelector("#heading");
+
+        // Change text dynamically
+        function changeText() {
+            output.textContent = "Text changed using JavaScript!";
+        }
+
+        // Change color dynamically
+        function changeColor() {
+            heading.style.color = "green";
+        }
+
+        // Add a new DOM element
+        function addElement() {
+            const newPara = document.createElement("p");
+
+            newPara.textContent = "New element added dynamically!";
+
+            document.querySelector(".container").appendChild(newPara);
+        }
+
+        // Interactive form
+        function showName() {
+            const name = document.querySelector("#username").value;
+
+            if (name.trim() === "") {
+                output.textContent = "Please enter your name!";
+            } else {
+                output.textContent = "Hello, " + name + "!";
+            }
+        }
+
+        // setTimeout()
+        let timeoutID;
+
+        function startTimeout() {
+            clearTimeout(timeoutID);
+
+            output.textContent = "Message will appear after 3 seconds...";
+
+            timeoutID = setTimeout(function() {
+                output.textContent = "Timeout completed!";
+            }, 3000);
+        }
+
+        // clearTimeout()
+        function stopTimeout() {
+            clearTimeout(timeoutID);
+            output.textContent = "Timeout cancelled!";
+        }
+
+        // setInterval()
+        let intervalID;
+        let count = 0;
+
+        function startInterval() {
+            if (intervalID) return;
+
+            intervalID = setInterval(function() {
+                count++;
+                document.querySelector("#timer").textContent =
+                    "Counter: " + count;
+            }, 1000);
+        }
+
+        // clearInterval()
+        function stopInterval() {
+            clearInterval(intervalID);
+            intervalID = null;
+        }
+
+    </script>
+
+</body>
+</html>
